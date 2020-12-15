@@ -1,0 +1,28 @@
+.container {
+    background: #171a29;
+}
+
+.restaurant-name {
+    color: white;
+}
+
+.silver-color {
+    color: #c0c0c0;
+}
+
+.btn-state {
+    background: #35728a;
+    color: #c0c0c0;
+    width: fit-content;
+}
+
+.category-name {
+    color: black;
+    &:hover {
+        color: #fc8019;
+    }
+}
+
+.food-list {
+    border-left: 1px solid #c3c3c3;
+}
