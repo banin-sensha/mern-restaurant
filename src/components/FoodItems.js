@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
+import FoodItem from './FoodItem';
+import AddOrDeleteItem from './AddOrDeleteItem';
 
 const FoodItems = () => {
     const [foodItems, setFoodItems] = useState([]);
@@ -13,19 +15,12 @@ const FoodItems = () => {
     }, []);
 
     return (
-        <div className="food-list ml-10x pl-20x">
+        <div className="food-list pl-20x mt-20x">
             {
                 (foodItems || []).map((food, index) => (
-                    <div
-                        className="mt-20x font-medium fs-14" 
-                        key={index}
-                    >
-                        <div className="mb-10x">
-                            {food.name}
-                        </div>
-                        <div>
-                            {food.price}
-                        </div>
+                    <div className="food-item flex flex-between mt-20x pb-10x" key={index}>
+                        <FoodItem food={food} />
+                        <AddOrDeleteItem />
                     </div>
                 ))
             }
