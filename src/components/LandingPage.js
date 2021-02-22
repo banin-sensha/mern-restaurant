@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../scss/LandingPage.scss';
 import CartItems from './CartItems';
 import CategoryList from './CategoryList';
@@ -6,7 +6,7 @@ import FoodItems from './FoodItems';
 import NavBar from './NavBar';
 
 const LandingPage = () => {
-    
+    const [cartItems, setCartItems] = useState([]);
 
     return (
         <div>
@@ -14,10 +14,10 @@ const LandingPage = () => {
             <div className="flex">
                 <CategoryList />
                 <div className="flex-1">
-                    <FoodItems />
+                    <FoodItems setCartItems={setCartItems} />
                 </div>
                 <div className="flex-1">
-                    <CartItems />
+                    <CartItems cartItems= {cartItems} />
                 </div>
             </div>
         </div>

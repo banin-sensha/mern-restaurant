@@ -1,22 +1,40 @@
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, {useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import Beef from '../images/beef.jpg';
 
-const AddOrDeleteItem = () => {
+const AddOrDeleteItem = ({ food, dispatchAction}) => {
     const [count, setCount] = useState(0);
+    const [foodWithCount, setFoodWithCount] =  useState({...food, count: count});
 
     const addItem = (e) => {
         e.preventDefault();
         setCount(count + 1);
+        setFoodWithCount({ ...foodWithCount, count: count + 1});
     }
 
     const deleteItem = (e) => {
         e.preventDefault();
         if (count > 0) {
             setCount(count - 1);
+            setFoodWithCount({ ...foodWithCount, count: count - 1 });
         }
     }
+
+    useEffect(() => {
+        dispatchAction({
+            type: 'updateCount',
+            food: foodWithCount
+        });
+
+    }, [foodWithCount]);
+
+    useEffect(() => {
+        dispatchAction({
+            type: 'initialize',
+            food: foodWithCount
+        })
+    }, []);
 
     return (
         <div>
