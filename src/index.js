@@ -4,10 +4,17 @@ import './styles/styles.scss';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {BrowserRouter, Route} from 'react-router-dom';
+import Checkout from './components/Checkout';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+      <BrowserRouter>
+      <div>
+          <Route path="/" exact component={App} />
+          <Route path="/checkout" exact component={Checkout} />
+      </div>
+      </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );

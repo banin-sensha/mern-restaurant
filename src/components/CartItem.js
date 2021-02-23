@@ -2,8 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRupeeSign } from '@fortawesome/free-solid-svg-icons';
 
-const CartItem = ({food, subtotal}) => {
-    console.log('CartItem.food', food);
+const CartItem = ({food}) => {
     return (
         <div className="cart-container">
             <div className="flex flex-between mb-10x">

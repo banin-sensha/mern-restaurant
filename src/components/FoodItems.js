@@ -2,6 +2,7 @@ import React, {useEffect, useReducer, useState} from 'react';
 import axios from 'axios';
 import FoodItem from './FoodItem';
 import AddOrDeleteItem from './AddOrDeleteItem';
+import _ from 'lodash';
 
 const reducer = (state, action) => {
     switch(action.type) {
@@ -26,7 +27,7 @@ const reducer = (state, action) => {
     }
 }
 
-const FoodItems = ({setCartItems}) => {
+const FoodItems = ({setCartItems, categoryList, divRef}) => {
     const [foodItems, setFoodItems] = useState([]);
 
     const [foodItemsWithCount, dispatch] = useReducer(reducer, []);
@@ -47,15 +48,33 @@ const FoodItems = ({setCartItems}) => {
         setCartItems(filteredCartItems);
     }, [foodItemsWithCount]);
 
+    var groupedFoodItems = _.groupBy(foodItems, "category_id");
+
     return (
         <div className="food-list pl-20x mt-20x">
             {
-                (foodItems || []).map((food, index) => (
-                    <div className="food-item flex flex-between mt-20x pb-10x" key={index}>
-                        <FoodItem food={food} />
-                        <AddOrDeleteItem food={food} dispatchAction={dispatchAction}/>
-                    </div>
-                ))
+                (categoryList || []).map((item, index) => {
+                    let categorizedFoodItem = _.find(groupedFoodItems, (value, key) => {
+                        if (key == item._id) return value;
+                    });
+
+                    return (
+                        <div key={index} ref={el => divRef.current[index] = el}>
+                            <div className="header-food flex flex-center pt-10x pb-10x mb-15x">
+                                {item.name}
+                            </div>
+                            {
+                                (categorizedFoodItem || []).map((food, index) => (
+                                    <div className="food-item flex flex-between mt-20x pb-10x" key={index}>
+                                        <FoodItem food={food} />
+                                        <AddOrDeleteItem food={food} dispatchAction={dispatchAction} />
+                                    </div>
+                                ))
+                            }
+                        </div>
+                        
+                    )
+                })
             }
         </div>
     );

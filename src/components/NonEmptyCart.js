@@ -3,6 +3,7 @@ import _ from 'lodash';
 import CartItem from './CartItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRupeeSign } from '@fortawesome/free-solid-svg-icons';
+import {Link} from 'react-router-dom';
 
 
 const NonEmptyCart = ({cartItems}) => {
@@ -57,11 +58,14 @@ const NonEmptyCart = ({cartItems}) => {
                     </span>
                 </div>
             </div>
-            <div className="checkout mt-25x flex flex-center pt-10x pl-10x pr-10x pb-10x curP">
-                <div>
-                    Checkout -->
+            <Link to="/checkout" className="link">
+                <div className="checkout mt-25x flex flex-center pt-10x pl-10x pr-10x pb-10x curP">
+                    <div>
+                        Checkout -->
+                    </div>
                 </div>
-            </div>
+            </Link>
+            
         </div>
     );
 }

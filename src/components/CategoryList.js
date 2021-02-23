@@ -1,9 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
-const CategoryList = () => {
-
-    const [categoryList, setCategoryList] = useState([]);
+const CategoryList = ({ categoryList, setCategoryList, divRef}) => {
 
     useEffect(() => {
         axios.get("http://localhost:5000/categories/")
@@ -11,6 +9,14 @@ const CategoryList = () => {
                 setCategoryList(res.data);
             })
     }, []);
+
+    const scrollToView = (e, index) => {
+        e.preventDefault();
+        divRef.current[index].scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+        });
+    }
 
     return (
         <div className="ml-20x mt-10x pr-30x">
@@ -20,6 +26,7 @@ const CategoryList = () => {
                         <div
                             className="category-name curP mb-10x font-medium fs-15" 
                             key={index}
+                            onClick={(e) => scrollToView(e,index)}
                         >
                             {category.name}
                         </div>
