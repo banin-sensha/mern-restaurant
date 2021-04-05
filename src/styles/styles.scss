@@ -3,3 +3,16 @@
 @import "fonts";
 @import "flex";
 @import "dimensions";
+@import "~react-toastify/scss/main";
+
+.Toastify__close-button {
+    margin-top: 12px;
+}
+
+.Toastify__toast--error {
+    background: $danger;
+}
+
+.Toastify__toast--success {
+    background: $success;
+}

@@ -4,6 +4,8 @@ import CartItem from './CartItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRupeeSign } from '@fortawesome/free-solid-svg-icons';
 import {Link} from 'react-router-dom';
+import axios from 'axios';
+import { showSuccess } from './toast_helper';
 
 
 const NonEmptyCart = ({cartItems}) => {
@@ -23,6 +25,24 @@ const NonEmptyCart = ({cartItems}) => {
 
         return subtotal;
     };
+
+    const placeOrder = (e) => {
+        e.preventDefault();
+
+        console.log('cartItems', cartItems);
+        var name = cartItems[0].name;
+        var price = cartItems[0].price;
+        var count = cartItems[0].count;
+
+        axios.post("http://localhost:5000/orders", {name, price, count})
+            .then((result) => {
+                console.log('result', result);
+                if (result.status == 200) {
+                    showSuccess("Order placed successfully");
+                    alert("Order placed successfully. Please go to Orders tab to see orders.")
+                }
+            });
+    }
 
     return (
         <div className="cart-container">
@@ -58,13 +78,16 @@ const NonEmptyCart = ({cartItems}) => {
                     </span>
                 </div>
             </div>
-            <Link to="/checkout" className="link">
-                <div className="checkout mt-25x flex flex-center pt-10x pl-10x pr-10x pb-10x curP">
+            {/* <Link to="/checkout" className="link"> */}
+                <div 
+                    className="checkout mt-25x flex flex-center pt-10x pl-10x pr-10x pb-10x curP"
+                    onClick={placeOrder}
+                >
                     <div>
-                        Checkout -->
+                        Order
                     </div>
                 </div>
-            </Link>
+            {/* </Link> */}
             
         </div>
     );
